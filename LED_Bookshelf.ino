@@ -6,7 +6,7 @@
 #include <WebServer.h>
 #include <WiFi.h>
 
-/* Function Prototype1 */
+/* Function Prototype */
 void doInitialize(void);
 void displayData(void);
 void bleTask(void *pvParameters);
