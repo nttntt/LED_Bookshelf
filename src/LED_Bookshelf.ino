@@ -173,8 +173,8 @@ void doInitialize()
   Serial.begin(SPI_SPEED);
 
   //  FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds,  0, NUM_LEDS);
-  FastLED.addLeds<LED_TYPE, DATA_PIN + 1, COLOR_ORDER>(leds, 0, 612);
-  FastLED.addLeds<LED_TYPE, DATA_PIN + 0, COLOR_ORDER>(leds, 612,
+  FastLED.addLeds<LED_TYPE, DATA_PIN + 0, COLOR_ORDER>(leds, 0, 612);
+  FastLED.addLeds<LED_TYPE, DATA_PIN + 1, COLOR_ORDER>(leds, 612,
                                                        NUM_LEDS - 612);
   FastLED.setBrightness(gBrightness);
 
