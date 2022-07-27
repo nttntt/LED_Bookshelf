@@ -40,19 +40,19 @@ void drawToEachRow(uint8_t i)
 // gLEDBufferに色情報を入れて中央をメインにコピー
 void drawToSameDirection(uint8_t i)
 {
-  leds[(NUM_BLOCK * 6) - i] = gLEDBuffer;
+  leds[(NUM_BLOCK * 6) - i - 1] = gLEDBuffer;
   leds[(NUM_BLOCK * 6) + i] = gLEDBuffer;
-  leds[(NUM_BLOCK * 18) - i] = gLEDBuffer;
+  leds[(NUM_BLOCK * 18) - i - 1] = gLEDBuffer;
   leds[(NUM_BLOCK * 18) + i] = gLEDBuffer;
-  leds[(NUM_BLOCK * 30) - i] = gLEDBuffer;
+  leds[(NUM_BLOCK * 30) - i - 1] = gLEDBuffer;
   leds[(NUM_BLOCK * 30) + i] = gLEDBuffer;
 
   leds[(NUM_BLOCK * 36) + (i * 2 / 3)] = gLEDBuffer;
-  leds[(NUM_BLOCK * 46) - i] = gLEDBuffer;
+  leds[(NUM_BLOCK * 46) - i - 1] = gLEDBuffer;
   leds[(NUM_BLOCK * 46) + (i / 3)] = gLEDBuffer;
-  leds[(NUM_BLOCK * 50) - (i / 3)] = gLEDBuffer;
+  leds[(NUM_BLOCK * 50) - (i / 3) - 1] = gLEDBuffer;
   leds[(NUM_BLOCK * 50) + i] = gLEDBuffer;
-  leds[(NUM_BLOCK * 60) - (i * 2 / 3)] = gLEDBuffer;
+  leds[(NUM_BLOCK * 60) - (i * 2 / 3) - 1] = gLEDBuffer;
   leds[i + NUM_BLOCK * 60] = gLEDBuffer;
   leds[i + NUM_BLOCK * 66] = gLEDBuffer;
 }
