@@ -127,11 +127,11 @@ void reel(uint8_t reset)
         gLEDBuffer = CHSV(0, 0, 0);
       }
       drawByBlock(x, y);
-      
+      Serial.print(sReel[y][x]);
     }
-    Serial.print(sReel[y][0]);
+    Serial.println("");
   }
-Serial.println("");
+
   // 配列シフト
   for (int8_t y = 8; y > 0; --y)
   {
@@ -143,90 +143,36 @@ Serial.println("");
 
   for (int8_t x = 0; x < 12; ++x)
   {
+    //ローテーション
+    sReel[0][x] = sReel[8][x];
     // 暗点増加
-    if ((sReel[3][x] == 1))
+    if ((20 < sSeq) && (sSeq < 29) && (sReel[1][x] == 1))
     {
       sReel[0][x] = 2;
     }
-    if ((40 < sSeq) && (sSeq < 49) && (sReel[3][x] == 2))
+    if ((40 < sSeq) && (sSeq < 49) && (sReel[1][x] == 2))
     {
       sReel[0][x] = 3;
     }
-    if ((60 < sSeq) && (sSeq < 69) && (sReel[3][x] == 3))
+    if ((60 < sSeq) && (sSeq < 69) && (sReel[1][x] == 3))
     {
       sReel[0][x] = 4;
     }
-    if ((80 < sSeq) && (sSeq < 89) && (sReel[3][x] == 4))
+    if ((80 < sSeq) && (sSeq < 89) && (sReel[1][x] == 4))
     {
       sReel[0][x] = 5;
     }
-    if ((100 < sSeq) && (sSeq < 109) && (sReel[3][x] == 5))
+    if ((100 < sSeq) && (sSeq < 109) && (sReel[1][x] == 5))
     {
       sReel[0][x] = 6;
     }
-    if ((120 < sSeq) && (sSeq < 129) && (sReel[3][x] == 6))
+    if ((120 < sSeq) && (sSeq < 129) && (sReel[1][x] == 6))
     {
       sReel[0][x] = 7;
     }
-    if ((140 < sSeq) && (sSeq < 149) && (sReel[3][x] == 7))
+    if ((140 < sSeq) && (sSeq < 149) && (sReel[1][x] == 7))
     {
       sReel[0][x] = 8;
     }
-    if ((160 < sSeq) && (sSeq < 169) && (sReel[3][x] == 8))
-    {
-      sReel[0][x] = 9;
-    }
-    //ローテーション
-    sReel[0][x] = sReel[8][x];
   }
 }
-/*{
-  static uint8_t sReel[9][12] = {
-      {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-      {0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
-      {1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1},
-      {1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
-      {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1},
-      {1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1},
-      {1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1},
-      {1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1}};
-  static uint8_t sSeq = 0;
-
-  // ブロックごとに描画
-  for (int8_t y = 0; y <= 8; ++y)
-  {
-    for (int8_t x = 0; x <= 12; ++x)
-    {
-      if (sReel[y][x] == 0)
-      {
-        gLEDBuffer = CHSV(0, 0, 0);
-      }
-      else
-      {
-        gLEDBuffer = CHSV(30, 241, 190);
-      }
-
-      drawByBlock(x, y);
-    }
-  }
-
-  // 配列シフト
-  for (int8_t y = 8; y > 0; --y)
-  {
-    for (int8_t x = 0; x < 12; ++x)
-    {
-      sReel[y][x] = sReel[y - 1][x];
-    }
-  }
-  for (int8_t x = 0; x <= 12; ++x)
-  {
-    sReel[0][x] = sReel[8][x];
-  }
-  /*
-      // 暗点増加
-      if (sReel[4][x] == 0)
-      {
-          sReel[0][x] =0;
-      }
-
-}*/
