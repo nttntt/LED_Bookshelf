@@ -57,7 +57,7 @@ WebServer server(HTTP_PORT);
 #define NUM_LEDS 1224
 #define NUM_BLOCK 17 // 1ブロックのLED数
 #define BRIGHTNESS 255
-#define FRAMES_PER_SECOND 30
+#define FRAMES_PER_SECOND 100
 
 CRGB leds[NUM_LEDS];
 CRGB virtualLeds[NUM_LEDS];
@@ -68,9 +68,7 @@ uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
 uint8_t gHue = 0;                  // rotating "base color" used by many of the patterns
 
 typedef void (*SimplePatternList[])(uint8_t);
-SimplePatternList gPatterns = {
-    reel, appearance, gradation, solid, pacifica_loop, flash, bpm,
-    confetti, blur, fire, flickerBySound, colorpicker};
+SimplePatternList gPatterns = {reel, gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, flickerBySound, appearance, colorpicker};
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 /* BLE関連 */
@@ -174,8 +172,7 @@ void doInitialize()
 
   //  FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds,  0, NUM_LEDS);
   FastLED.addLeds<LED_TYPE, DATA_PIN + 0, COLOR_ORDER>(leds, 0, 612);
-  FastLED.addLeds<LED_TYPE, DATA_PIN + 1, COLOR_ORDER>(leds, 612,
-                                                       NUM_LEDS - 612);
+  FastLED.addLeds<LED_TYPE, DATA_PIN + 1, COLOR_ORDER>(leds, 612, NUM_LEDS - 612);
   FastLED.setBrightness(gBrightness);
 
   Serial.println("LED Controller start ...");
@@ -186,7 +183,7 @@ void nextPattern()
 {
   // add one to the current pattern number, and wrap around at the end
   gCurrentPatternNumber =
-      (gCurrentPatternNumber + 1) % (ARRAY_SIZE(gPatterns) - 1);
+      (gCurrentPatternNumber + 1) % (ARRAY_SIZE(gPatterns) - 3);
 }
 
 /* 受信データを表示する */

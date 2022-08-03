@@ -69,15 +69,15 @@ void appearance(uint8_t reset)
 
 void reel(uint8_t reset)
 {
-  static uint8_t sReel[9][12] = {
-      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-      {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-      {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-      {0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0},
-      {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0}};
+  static uint8_t sReel[8][13] = {
+      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}};
 
   static uint8_t sSeq = 0;
   static uint8_t sHue = 30;
@@ -89,30 +89,21 @@ void reel(uint8_t reset)
     sSeq = 0;
     for (uint8_t y = 0; y < 8; ++y)
     {
-      for (uint8_t x = 0; x < 12; ++x)
+      for (uint8_t x = 0; x < 13; ++x)
       {
         sReel[y][x] = 0;
       }
     }
     sReel[0][2] = 1;
-    sReel[0][11] = 1;
-    sReel[1][0] = 1;
     sReel[1][8] = 1;
     sReel[2][5] = 1;
     sReel[3][1] = 1;
-    sReel[3][10] = 1;
+    sReel[3][1] = 1;
     sReel[4][7] = 1;
     sReel[5][6] = 1;
     sReel[6][3] = 1;
-    sReel[6][9] = 1;
-    sReel[7][4] = 1;
+    sReel[7][11] = 1;
   }
-
-  if (sSeq < 255)
-  {
-    sSeq++;
-  }
-
   // ブロックごとに描画
   for (int8_t y = 0; y < 8; ++y)
   {
@@ -127,52 +118,68 @@ void reel(uint8_t reset)
         gLEDBuffer = CHSV(0, 0, 0);
       }
       drawByBlock(x, y);
-      Serial.print(sReel[y][x]);
-    }
-    Serial.println("");
-  }
-
-  // 配列シフト
-  for (int8_t y = 8; y > 0; --y)
-  {
-    for (int8_t x = 0; x < 12; ++x)
-    {
-      sReel[y][x] = sReel[y - 1][x];
     }
   }
 
-  for (int8_t x = 0; x < 12; ++x)
+  if (sSeq < 179)
   {
-    //ローテーション
-    sReel[0][x] = sReel[8][x];
-    // 暗点増加
-    if ((20 < sSeq) && (sSeq < 29) && (sReel[1][x] == 1))
+    sSeq++;
+
+    // 配列シフト
+    for (int8_t x = 12; x > 0; --x)
     {
-      sReel[0][x] = 2;
+      for (int8_t y = 0; y < 8; ++y)
+      {
+        sReel[y][x] = sReel[y][x - 1];
+      }
     }
-    if ((40 < sSeq) && (sSeq < 49) && (sReel[1][x] == 2))
+
+    for (int8_t y = 0; y < 8; ++y)
     {
-      sReel[0][x] = 3;
+      //ローテーション
+      sReel[y][0] = sReel[y][12];
+      // 暗点増加
+      for (int8_t i = 1; i < 11; ++i)
+      {
+        if (((i * 12) <= sSeq) && (sSeq < ((i + 1) * 12)) && (sReel[y][1] == i))
+        {
+          sReel[y][0] = i + 1;
+        }
+      }
     }
-    if ((60 < sSeq) && (sSeq < 69) && (sReel[1][x] == 3))
+
+    if (100 <= sSeq)
     {
-      sReel[0][x] = 4;
+      sReel[0][0] = 12;
     }
-    if ((80 < sSeq) && (sSeq < 89) && (sReel[1][x] == 4))
+    if (106 <= sSeq)
     {
-      sReel[0][x] = 5;
+      sReel[7][0] = 12;
     }
-    if ((100 < sSeq) && (sSeq < 109) && (sReel[1][x] == 5))
+    if (106 <= sSeq)
     {
-      sReel[0][x] = 6;
+      sReel[2][0] = 12;
     }
-    if ((120 < sSeq) && (sSeq < 129) && (sReel[1][x] == 6))
+    if (112 <= sSeq)
     {
-      sReel[0][x] = 7;
+      sReel[6][0] = 12;
     }
-    if ((140 < sSeq) && (sSeq < 149) && (sReel[1][x] == 7))
+    if (118 <= sSeq)
     {
-      sReel[0][x] = 8;
+      sReel[4][0] = 12;
+    }
+    if (124 <= sSeq)
+    {
+      sReel[1][0] = 12;
+    }
+    if (136 <= sSeq)
+    {
+      sReel[3][0] = 12;
     }
   }
+}
+
+void clock(uint8_t reset)
+{
+  
 }

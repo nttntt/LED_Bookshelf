@@ -25,7 +25,7 @@ const String strHtmlBody = R"rawliteral(
     <tr><td>Brightness</td><td><span class="value">%BRIGHTNESS%</span></td></tr>
     <tr><td>Sensitivity</td><td><span class="value">%SENSITIVITY%</span></td></tr>
     </table>
-    <input type="button" value="Mode " style="font-size:32px;" onclick="location.href='/?button=mode';"><br>
+    <input type="button" value="Mode" style="font-size:32px;" onclick="location.href='/?button=mode';"><br>
     <input type="button" value="Reset" style="font-size:32px;" onclick="location.href='/?button=reset';"><br>
     <input type="button" value="^" style="font-size:32px;" onclick="location.href='/?button=up';"><br>
     <input type="button" value="<" style="font-size:32px;" onclick="location.href='/?button=left';">
@@ -72,7 +72,7 @@ void handleHtml(void)
     }
     else if (server.arg("button").equals("book1"))
     {
-      gCurrentPatternNumber = 1;
+      gCurrentPatternNumber = ARRAY_SIZE(gPatterns) - 2;
       gB = 16;
     }
     else if (server.arg("button").equals("book2"))
