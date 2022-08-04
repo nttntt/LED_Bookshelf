@@ -178,8 +178,3 @@ void reel(uint8_t reset)
     }
   }
 }
-
-void clock(uint8_t reset)
-{
-  
-}
