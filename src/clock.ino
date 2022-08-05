@@ -49,34 +49,39 @@ void clock(uint8_t reset)
   if (prev_s != s)
   {
     prev_s = s;
-    Serial.println(timeInfo.tm_min);
-
-    for (int8_t y = 0; y < 3; ++y)
-    {
-      for (int8_t x = 0; x < 17; ++x)
-      {
-        if (gFont[s % 10][y * 17 + x] == 0)
-        {
-          Serial.print(" ");
-        }
-        else if (gFont[s % 10][y * 17 + x] == 1)
-        {
-          Serial.print("'");
-        }
-        else if (gFont[s % 10][y * 17 + x] == 2)
-        {
-          Serial.print("|");
-        }
-      }
-          Serial.println();
-    }
-    Serial.println(s);
+    uint8_t h = timeInfo.tm_hour;
+    uint8_t m = timeInfo.tm_min;
+    displayNumber(h / 10);
+    displayNumber(h % 10);
+    displayNumber(m / 10);
+    displayNumber(m % 10);
+    displayNumber(s / 10);
+    displayNumber(s % 10);
   }
   /*
           timeInfo.tm_year + 1900, timeInfo.tm_mon + 1, timeInfo.tm_mday,
           timeInfo.tm_hour, timeInfo.tm_min, timeInfo.tm_sec); */
 }
 
-void numToArray(uint8_t number)
+void displayNumber(uint8_t number)
 {
+  for (int8_t y = 0; y < 3; ++y)
+  {
+    for (int8_t x = 0; x < 17; ++x)
+    {
+      if (gFont[s % 10][y * 17 + x] == 0)
+      {
+        Serial.print(" ");
+      }
+      else if (gFont[number][y * 17 + x] == 1)
+      {
+        Serial.print("'");
+      }
+      else if (gFont[s % 10][y * 17 + x] == 2)
+      {
+        Serial.print("|");
+      }
+    }
+    Serial.println();
+  }
 }
