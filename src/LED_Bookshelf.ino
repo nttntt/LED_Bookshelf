@@ -250,7 +250,7 @@ void bpm(uint8_t reset)
 
 void colorpicker(uint8_t reset)
 {
-  // 普通の光
+  
   static uint8_t sHue = 26;
   if (reset)
   {
