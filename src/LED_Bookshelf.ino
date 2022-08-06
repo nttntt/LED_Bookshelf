@@ -34,6 +34,9 @@ void drawToEachRow(uint8_t);
 void drawToSameDirection(uint8_t);
 CHSV rgb2hsv_rainbow(CRGB);
 void clock(uint8_t);
+void clock0(uint8_t);
+void clock1(uint8_t);
+void clock2(uint8_t);
 
 /* 基本属性定義  */
 #define SPI_SPEED 115200 // SPI通信速度
@@ -71,7 +74,7 @@ uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
 uint8_t gHue = 0;                  // rotating "base color" used by many of the patterns
 
 typedef void (*SimplePatternList[])(uint8_t);
-SimplePatternList gPatterns = {clock, reel, gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, flickerBySound, appearance, colorpicker};
+SimplePatternList gPatterns = {clock1, clock2, clock, clock0, reel, gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, flickerBySound, appearance, colorpicker};
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 /* BLE関連 */
@@ -250,7 +253,7 @@ void bpm(uint8_t reset)
 
 void colorpicker(uint8_t reset)
 {
-  
+
   static uint8_t sHue = 26;
   if (reset)
   {
@@ -630,4 +633,3 @@ void bleTask(void *pvParameters)
     // displayData();
   }
 }
-
