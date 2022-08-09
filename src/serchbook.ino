@@ -121,7 +121,7 @@ void reel(uint8_t reset)
     }
   }
 
-  if (sSeq < 179)
+  if (sSeq < 178)
   {
     sSeq++;
 
@@ -176,5 +176,61 @@ void reel(uint8_t reset)
     {
       sReel[3][0] = 12;
     }
+  }
+}
+
+void lockon(uint8_t reset)
+{
+  // 指定の本を照らす
+  static uint8_t sHue = 30;
+  static uint8_t sValue = 0;
+  static float sSeq = 0;
+  static int16_t sX = 6;
+  static int16_t sY = 4;
+
+  if (reset)
+  {
+    sHue = 30;
+    gBrightness = BRIGHTNESS;
+    sSeq = 0;
+  }
+  sHue += getDeltaY(16);
+  chgBrightness();
+
+  gLEDBuffer = CRGB(0, 255, 0);
+  if (sSeq < 255)
+  {
+    sSeq++;
+  }
+  if (sSeq < 105)
+  {
+    sX = cos(sSeq / 10) * 100 + 100;
+    sY = cos(sSeq /20) * 3.9 + 4;
+    fadeToBlackBy(leds, NUM_LEDS, 200);
+    for (int16_t i = 0; i < 8; ++i)
+    {
+      gLEDBuffer = CRGB(0, 255, 0);
+      drawDot(sX, i);
+      // drawDot(sX + 1, i);
+    }
+    for (int16_t i = 0; i < 204; ++i)
+    {
+      gLEDBuffer = CRGB(0, 0, 128);
+      drawDot(i, sY);
+    }
+  }
+  else if (sSeq < 150)
+  {
+    sX = cos(10.4) * 100 + 100;
+    fadeToBlackBy(leds, NUM_LEDS, 10);
+    for (int16_t i = 0; i < 8; ++i)
+    {
+      drawDot(sX, i);
+    }
+    /*for (int16_t i = 0; i < 204; ++i)
+    {
+      gLEDBuffer = CRGB(0, 0, 255);
+      drawDot(i, 5);
+    }*/
   }
 }

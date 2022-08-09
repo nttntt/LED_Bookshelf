@@ -30,6 +30,8 @@ void pacifica_loop(uint8_t);
 void fire(uint8_t);
 void gradation(uint8_t);
 void drawByBlock(uint8_t, uint8_t);
+void drawByHalfBlock(uint8_t, uint8_t);
+void drawDot(int16_t, int16_t);
 void drawToEachRow(uint8_t);
 void drawToSameDirection(uint8_t);
 CHSV rgb2hsv_rainbow(CRGB);
@@ -37,6 +39,7 @@ void clock(uint8_t);
 void clock0(uint8_t);
 void clock1(uint8_t);
 void clock2(uint8_t);
+void lockon(uint8_t);
 
 /* 基本属性定義  */
 #define SPI_SPEED 115200 // SPI通信速度
@@ -73,8 +76,8 @@ uint8_t gBrightness = BRIGHTNESS;
 uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
 uint8_t gHue = 0;                  // rotating "base color" used by many of the patterns
 
-typedef void (*SimplePatternList[])(uint8_t);
-SimplePatternList gPatterns = {clock1, clock2, clock, clock0, reel, gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, flickerBySound, appearance, colorpicker};
+typedef void (*SimplePatternList[])(uint8_t); //, clock1, clock2
+SimplePatternList gPatterns = {gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, lockon, reel, clock, clock0, flickerBySound, appearance, colorpicker};
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 /* BLE関連 */

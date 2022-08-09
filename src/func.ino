@@ -37,6 +37,39 @@ void drawByHalfBlock(uint8_t x, uint8_t y)
     }
   }
 }
+
+void drawDot(int16_t x, int16_t y)
+{
+  if (x < 0 || 201 < x || y < 0 || 7 < y)
+  {
+    return;
+  }
+  else if (y == 0)
+  {
+    leds[612 + 203 - x] = gLEDBuffer;
+  }
+  else if (y == 1)
+  {
+    leds[612 + 204 + x] = gLEDBuffer;
+  }
+  else if ((y == 2 || y == 4 || y == 6) && 33 < x && x < 136)
+  {
+    leds[(y - 1) * 102 - x + 33] = gLEDBuffer;
+  }
+  else if ((y == 3 || y == 5 || y == 7) && 33 < x && x < 136)
+  {
+    leds[(y - 2) * 102 + x - 34] = gLEDBuffer;
+  }
+  else if ((y == 2 || y == 4 || y == 6) && 169 < x)
+  {
+    leds[(y - 1) * 34 - x + 170 + 1019] = gLEDBuffer;
+  }
+  else if ((y == 3 || y == 5 || y == 7) && 169 < x)
+  {
+    leds[(y - 2) * 34 + x - 170 + 1020] = gLEDBuffer;
+  }
+}
+
 // gLEDBufferに色情報を入れて0~101個を各段にコピー
 void drawToEachRow(uint8_t i)
 {
