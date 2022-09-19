@@ -77,7 +77,7 @@ uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
 uint8_t gHue = 0;                  // rotating "base color" used by many of the patterns
 
 typedef void (*SimplePatternList[])(uint8_t); //, clock1, clock2
-SimplePatternList gPatterns = {gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, lockon, reel, clock, clock0, flickerBySound, appearance, colorpicker};
+SimplePatternList gPatterns = {gradation, solid, pacifica_loop, flash, bpm, confetti, blur, fire, clock, clock0, flickerBySound, appearance, lockon, reel, colorpicker};
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 /* BLE関連 */

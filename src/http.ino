@@ -70,14 +70,19 @@ void handleHtml(void)
     {
       gB = 16;
     }
-    else if (server.arg("button").equals("book1"))
+    else if (server.arg("button").equals("book0"))
     {
       gCurrentPatternNumber = ARRAY_SIZE(gPatterns) - 2;
       gB = 16;
     }
+    else if (server.arg("button").equals("book1"))
+    {
+      gCurrentPatternNumber = ARRAY_SIZE(gPatterns) - 3;
+      gB = 16;
+    }
     else if (server.arg("button").equals("book2"))
     {
-      gCurrentPatternNumber = 0;
+      gCurrentPatternNumber = ARRAY_SIZE(gPatterns) - 4;
       gB = 16;
     }
     else if (server.arg("button").equals("up"))
@@ -112,9 +117,6 @@ void handleNotFound(void)
   server.send(404, "text/plain", "Not Found.");
 }
 
-
-
-
 /****************************< HTTP functions >****************************/
 /* マルチタスクでHTTP & OTA待ち受け */
 void htmlTask(void *pvParameters)
@@ -124,7 +126,6 @@ void htmlTask(void *pvParameters)
   startWebServer(); // WebServer
   startOTA();
   configTime(JST, 0, NTPServer1, NTPServer2); // NTPの設定
-
 
   while (true)
   {

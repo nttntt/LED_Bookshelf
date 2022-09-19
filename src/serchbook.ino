@@ -104,6 +104,13 @@ void reel(uint8_t reset)
     sReel[6][3] = 1;
     sReel[7][11] = 1;
   }
+
+  if (sSeq < 210)
+  {
+    sSeq++;
+  }
+  if (sSeq < 180)
+  {
   // ブロックごとに描画
   for (int8_t y = 0; y < 8; ++y)
   {
@@ -120,11 +127,6 @@ void reel(uint8_t reset)
       drawByBlock(x, y);
     }
   }
-
-  if (sSeq < 178)
-  {
-    sSeq++;
-
     // 配列シフト
     for (int8_t x = 12; x > 0; --x)
     {
@@ -177,6 +179,11 @@ void reel(uint8_t reset)
       sReel[3][0] = 12;
     }
   }
+  else if (sSeq < 210)
+  {
+    fadeToBlackBy(leds, NUM_LEDS, 10);
+    leds[365] = CHSV(sHue, 241, 190);
+  }
 }
 
 void lockon(uint8_t reset)
@@ -205,7 +212,7 @@ void lockon(uint8_t reset)
   if (sSeq < 105)
   {
     sX = cos(sSeq / 10) * 100 + 100;
-    sY = cos(sSeq /20) * 3.9 + 4;
+    sY = (int)((sSeq / 7)) % 8;
     fadeToBlackBy(leds, NUM_LEDS, 200);
     for (int16_t i = 0; i < 8; ++i)
     {
