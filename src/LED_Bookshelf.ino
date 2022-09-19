@@ -41,7 +41,7 @@ void clock1(uint8_t);
 void clock2(uint8_t);
 void lockon(uint8_t);
 
-/* 基本属性定義  */
+/* 基本属性定義 */
 #define SPI_SPEED 115200 // SPI通信速度
 
 // ルーター接続情報
