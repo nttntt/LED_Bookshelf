@@ -45,13 +45,13 @@ void lockon(uint8_t);
 #define SPI_SPEED 115200 // SPI通信速度
 
 // ルーター接続情報
-#define WIFI_SSID "0856g"
+#define WIFI_SSID "Bancho_IoT"
 #define WIFI_PASSWORD "nttnttntt"
 // Multicast DNS名
 #define LEDS_NAME "LED_Bookshelf"
 // 時間取得
 #define JST 9 * 3600L
-#define NTPServer1 "192.168.1.10"
+#define NTPServer1 "192.168.1.30"
 #define NTPServer2 "time.google.com"
 
 // Webサーバーオブジェクト
@@ -85,7 +85,7 @@ SimplePatternList gPatterns = {gradation, solid, pacifica_loop, flash, bpm, conf
 #define ManufacturerId 0xffff       // 既定のManufacturer ID
 const uint8_t scanning_time = 3;    // スキャン時間（秒）
 BLEAdvertisedDevice *targetDevice;  // 目的のBLEデバイス
-std::string gData = "";
+String gData = "";
 uint8_t gPrevSeq = 255; // 前回のシーケンス番号
 int16_t gX = 0;
 int16_t gY = 0;
@@ -578,7 +578,7 @@ void chgBrightness()
     // -2000~2000を-32~32に変換
     int8_t delta = gX * 32 / 2000;
     gBrightness = constrain(gBrightness + delta, 10, 255);
-    FastLED.setBrightness(dim8_lin(gBrightness));
+    FastLED.setBrightness(fl::dim8_lin(gBrightness));
     gX = 0;
   }
 }
