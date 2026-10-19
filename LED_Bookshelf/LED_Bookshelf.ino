@@ -44,9 +44,11 @@ void lockon(uint8_t);
 /* 基本属性定義 */
 #define SPI_SPEED 115200 // SPI通信速度
 
-// ルーター接続情報
-#define WIFI_SSID "Bancho_IoT"
-#define WIFI_PASSWORD "nttnttntt"
+// Delete the include line and uncomment the two lines below to enter your Wi-Fi details.
+#include <credentials.h>
+//  #define WIFI_SSID     "InputYourSSID"
+//  #define WIFI_PASSWORD "InputYourPassword"
+
 // Multicast DNS名
 #define LEDS_NAME "LED_Bookshelf"
 // 時間取得
